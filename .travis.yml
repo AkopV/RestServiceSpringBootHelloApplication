@@ -1,0 +1,33 @@
+language: java
+os:
+  - linux
+  - osx
+
+branches:
+  except:
+    - /.*test$/
+
+env:
+  matrix:
+    - CUSTOM_JDK="oraclejdk8"
+
+
+matrix:
+  exclude:
+     # On OSX, run with default JDK only.
+     - os: osx
+       env: CUSTOM_JDK="oraclejdk8"
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export JAVA_HOME=$(/usr/libexec/java_home); fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then jdk_switcher use "$CUSTOM_JDK"; fi
+
+before_script: sudo apt-get install build-essential automake1.10 libtool
+
+script: "mvn install -P linux64"
+
+after_success:
+  - mvn -P linux64 jacoco:report coveralls:report
+
+after_failure:
+  - cat lmdbjni-linux64/target/surefire-reports/*.txt
