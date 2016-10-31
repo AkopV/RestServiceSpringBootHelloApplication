@@ -40,7 +40,7 @@ public class Utils {
         StringBuilder stringBuilder = new StringBuilder();
         List<Contact> contacts = new ArrayList<>();
         for (int i = 0; i < 200; i++) {
-            for (int j = 0; j < 500; j++) {
+            for (int j = 0; j < 5000; j++) {
                 stringBuilder.append(names.get(random.nextInt(names.size())));
                 contacts.add(new Contact(stringBuilder.toString()));
                 stringBuilder.setLength(0);

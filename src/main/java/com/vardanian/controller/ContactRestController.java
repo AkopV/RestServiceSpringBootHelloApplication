@@ -19,7 +19,7 @@ public class ContactRestController {
     @Autowired
     ContactService contactService;
 
-    @RequestMapping(value = "/contacts", params = "nameFilter", method = RequestMethod.GET)
+    @RequestMapping(value = "/hello/contacts", params = "nameFilter", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Contact>> getContactByName(@RequestParam("nameFilter") String nameFilter) {
         Utils utils = new Utils();
