@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,12 +28,14 @@ public class FilterContact {
     }
 
     public List<Contact> filterContactByName(List<Contact> contacts, String name) {
+        LOG.info("Start filtering all data");
         List<Contact> filterContacts = new ArrayList<>();
         for (Contact filter : contacts) {
             if (!checkWithRegExp(filter.getName(), name)){
                 filterContacts.add(filter);
             }
         }
+        LOG.info("All data was filtering");
         return filterContacts;
     }
 

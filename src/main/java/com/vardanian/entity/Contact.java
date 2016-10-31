@@ -35,24 +35,24 @@ public class Contact {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Contact)) return false;
-
-        Contact contact = (Contact) o;
-
-        if (!getId().equals(contact.getId())) return false;
-        return getName().equals(contact.getName());
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getName().hashCode();
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Contact)) return false;
+//
+//        Contact contact = (Contact) o;
+//
+//        if (!getId().equals(contact.getId())) return false;
+//        return getName().equals(contact.getName());
+//
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = getId().hashCode();
+//        result = 31 * result + getName().hashCode();
+//        return result;
+//    }
 
     @Override
     public String toString() {

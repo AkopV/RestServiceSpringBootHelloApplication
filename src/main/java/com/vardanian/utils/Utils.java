@@ -1,6 +1,7 @@
 package com.vardanian.utils;
 
 import com.vardanian.entity.Contact;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,6 +11,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Utils {
+
+    private static final Logger LOG = Logger.getLogger(Utils.class);
+
+    public static Utils getInstance() {
+        return new Utils();
+    }
 
     public List<String> getNames(String fileName){
         List<String> names = new ArrayList<>();
@@ -27,6 +34,7 @@ public class Utils {
     }
 
     public List<Contact> recordDBContacts() {
+        LOG.info("Recording table contacts");
         List<String> names = getNames("name.csv");
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
@@ -38,6 +46,7 @@ public class Utils {
                 stringBuilder.setLength(0);
             }
         }
+        LOG.info("Table contacts was recording");
         return contacts;
     }
 }
