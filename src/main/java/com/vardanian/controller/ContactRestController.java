@@ -23,10 +23,8 @@ public class ContactRestController {
     @ResponseBody
     public ResponseEntity<List<Contact>> getContactByName(@RequestParam("nameFilter") String nameFilter) {
         Utils utils = new Utils();
-        List<Contact> contacts = new ArrayList<>();
-        contacts = utils.recordDBContacts();
+        List<Contact> contacts = utils.recordDBContacts();
         FilterContact filterContact = new FilterContact();
-
         contactService.save(contacts);
         contacts = contactService.getAllContacts();
 
@@ -34,22 +32,5 @@ public class ContactRestController {
             return new ResponseEntity<List<Contact>>(HttpStatus.NO_CONTENT);
         }
         return  new ResponseEntity<List<Contact>>(filterContact.filterContactByName(contacts, nameFilter), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/contacts", params = "nameFilter", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Contact> getAllContacts(@RequestParam("nameFilter") String nameFilter) {
-        Utils utils = new Utils();
-        List<Contact> contacts = new ArrayList<>();
-        contacts = utils.recordDBContacts();
-        FilterContact filterContact = new FilterContact();
-
-        contactService.save(contacts);
-        contacts = contactService.getAllContacts();
-
-        if (contacts.isEmpty()){
-            return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
-        }
-        return  new ResponseEntity<Contact>(filterContact.getContactByName(contacts, nameFilter), HttpStatus.OK);
     }
 }

@@ -28,39 +28,19 @@ public class FilterContact {
         pattern = Pattern.compile(nameFilter);
     }
 
-    public List<Contact> filterContact(Iterator<Contact> iterator) {
-        List<Contact> contacts = new ArrayList<>();
-        while (iterator.hasNext()){
-            Contact contact = iterator.next();
-            if (pattern.matcher(contact.getName()).matches()){
-                contacts.add(contact);
-            }
-        }
-        return contacts;
-    }
-
     public List<Contact> filterContactByName(List<Contact> contacts, String name) {
+        List<Contact> filterContacts = new ArrayList<>();
         for (Contact filter : contacts) {
-            if (checkWithRegExp(filter.getName(), name)){
-                contacts.add(filter);
+            if (!checkWithRegExp(filter.getName(), name)){
+                filterContacts.add(filter);
             }
         }
-        return contacts;
+        return filterContacts;
     }
 
-    public  boolean checkWithRegExp(String userNameString, String filter){
+    private  boolean checkWithRegExp(String userName, String filter){
         Pattern p = Pattern.compile(filter);
-        Matcher m = p.matcher(userNameString);
+        Matcher m = p.matcher(userName);
         return m.matches();
-    }
-
-    public Contact getContactByName(List<Contact> contacts, String name) {
-        Contact contact = null;
-        for(Contact temo : contacts) {
-            if(name.equals(temo.getName())){
-                contact = temo;
-            }
-        }
-        return contact;
     }
 }
