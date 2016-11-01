@@ -36,9 +36,4 @@ public class ContactServiceImpl implements ContactService {
     public void deleteAllContacts() {
         contactRepository.deleteAll();
     }
-
-    @Override
-    public Page<Contact> getAllContacts(Pageable pageable) {
-        return contactRepository.findAll(pageable);
-    }
 }

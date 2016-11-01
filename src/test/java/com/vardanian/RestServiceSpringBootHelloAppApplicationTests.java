@@ -33,13 +33,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestServiceSpringBootHelloAppApplicationTests {
 
+    private final static String NAME_FILTER = "^A.*$";
+
 	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(),
 			Charset.forName("utf8"));
 
 	private MockMvc mockMvc;
-
-	private String userName = "Akop";
 
 	private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
@@ -59,7 +59,7 @@ public class RestServiceSpringBootHelloAppApplicationTests {
 	private WebApplicationContext webApplicationContext;
 
 	@Autowired
-	void serCoverters(HttpMessageConverter<?>[] converters) {
+	void setConverters(HttpMessageConverter<?>[] converters) {
 		this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream().filter(httpMessageConverter ->
 		httpMessageConverter instanceof MappingJackson2HttpMessageConverter).findAny().get();
 
@@ -84,15 +84,15 @@ public class RestServiceSpringBootHelloAppApplicationTests {
 
 	@Test
 	public void contactNotFound() throws Exception {
-		mockMvc.perform(post("contacts/").content(this.json(new Contact()))
+		mockMvc.perform(post("contacts/").content(this.formJson(new Contact()))
 				.content(String.valueOf(contentType)))
 				.andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void testFilterContactByNameOne() {
+	public void testFilterContactByName() {
 		List<String> resultContacts = Arrays.asList("Robert","Masha");
-		List<Contact> listContacts = filterContact.filterContactByName(contactService.getAllContacts(), "^A.*$");
+		List<Contact> listContacts = filterContact.filterContactByName(contactService.getAllContacts(), NAME_FILTER);
         List<String> checkContacts = new ArrayList<>();
             for(Contact contact : listContacts) {
                checkContacts.add(contact.getName());
@@ -100,18 +100,7 @@ public class RestServiceSpringBootHelloAppApplicationTests {
 		assertEquals(resultContacts, checkContacts);
 	}
 
-    @Test
-    public void testFilterContactByNameTwo() {
-        List<String> resultContacts = Arrays.asList("Akop");
-        List<Contact> listContacts = filterContact.filterContactByName(contactService.getAllContacts(), "^.*[aei].*$");
-        List<String> checkContacts = new ArrayList<>();
-        for(Contact contact : listContacts) {
-            checkContacts.add(contact.getName());
-        }
-        assertEquals(resultContacts, checkContacts);
-    }
-
-	protected String json(Object o) throws IOException {
+	protected String formJson(Object o) throws IOException {
 		MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
 		this.mappingJackson2HttpMessageConverter.write(
 				o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);

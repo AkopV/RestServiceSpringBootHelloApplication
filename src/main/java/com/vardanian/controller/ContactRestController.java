@@ -22,7 +22,7 @@ public class ContactRestController {
     @RequestMapping(value = "/hello/contacts", params = "nameFilter", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Contact>> getContactByName(@RequestParam("nameFilter") String nameFilter) {
-        Utils utils = new Utils();
+        Utils utils = Utils.getInstance();
         List<Contact> contacts = utils.recordDBContacts();
         FilterContact filterContact = new FilterContact();
         contactService.save(contacts);

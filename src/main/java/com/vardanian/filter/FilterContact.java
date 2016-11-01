@@ -35,7 +35,7 @@ public class FilterContact {
                 filterContacts.add(filter);
             }
         }
-        LOG.info("All data was filtering");
+        LOG.info("All data was filtered");
         return filterContacts;
     }
 

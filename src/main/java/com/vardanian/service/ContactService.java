@@ -16,7 +16,5 @@ public interface ContactService {
     void save(List<Contact> contacts);
 
     void deleteAllContacts();
-
-    Page<Contact> getAllContacts(Pageable pageable);
 }
 

@@ -28,7 +28,7 @@ public class Utils {
                 names.add(line);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOG.error("File doesn't exist. " + e);
         }
         return names;
     }
@@ -46,7 +46,7 @@ public class Utils {
                 stringBuilder.setLength(0);
             }
         }
-        LOG.info("Table contacts was recording");
+        LOG.info("Table contacts was recorded");
         return contacts;
     }
 }
