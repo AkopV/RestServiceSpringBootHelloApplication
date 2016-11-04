@@ -22,11 +22,9 @@ public class ContactRestController {
     @RequestMapping(value = "/hello/contacts", params = "nameFilter", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Contact>> getContactByName(@RequestParam("nameFilter") String nameFilter) {
-        Utils utils = Utils.getInstance();
-        List<Contact> contacts = utils.recordDBContacts();
+
         FilterContact filterContact = new FilterContact();
-        contactService.save(contacts);
-        contacts = contactService.getAllContacts();
+        List<Contact> contacts = contactService.getAllContacts();
 
         if (contacts.isEmpty()){
             return new ResponseEntity<List<Contact>>(HttpStatus.NO_CONTENT);
