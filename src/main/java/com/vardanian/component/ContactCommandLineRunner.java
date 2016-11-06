@@ -1,20 +1,25 @@
 package com.vardanian.component;
 
-
-import com.vardanian.entity.Contact;
 import com.vardanian.service.ContactService;
+import com.vardanian.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ContactCommandLineRunner implements CommandLineRunner {
 
-    @Autowired
     ContactService contactService;
+
+    Utils utils = Utils.getInstance();
+
+    @Autowired
+    public ContactCommandLineRunner(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        for (Contact contact : contactService.getAllContacts()) {
-            System.out.println(contact.toString());
-        }
+        this.contactService.save(utils.recordDBContacts());
     }
 }

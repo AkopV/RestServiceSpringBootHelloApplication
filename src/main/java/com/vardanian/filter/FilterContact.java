@@ -1,9 +1,7 @@
 package com.vardanian.filter;
 
 import com.vardanian.entity.Contact;
-import com.vardanian.service.ContactService;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,6 @@ public class FilterContact {
     private static final Logger LOG = Logger.getLogger(FilterContact.class);
 
     private Pattern pattern;
-
-    @Autowired
-    ContactService contactService;
 
     public Pattern getPattern() {
         return pattern;

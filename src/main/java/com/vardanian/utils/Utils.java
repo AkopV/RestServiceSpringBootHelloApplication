@@ -1,9 +1,8 @@
 package com.vardanian.utils;
 
 import com.vardanian.entity.Contact;
-import com.vardanian.service.ContactService;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,13 +11,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+@Component
 public class Utils {
 
     private static final Logger LOG = Logger.getLogger(Utils.class);
 
-    @Autowired
-    private ContactService contactService;
-
+    @org.jetbrains.annotations.Contract(" -> !null")
     public static Utils getInstance() {
         return new Utils();
     }
@@ -38,7 +36,7 @@ public class Utils {
         return names;
     }
 
-    public void recordDBContacts() {
+    public List<Contact> recordDBContacts() {
         LOG.info("Recording table contacts");
         List<String> names = getNames("name.csv");
         Random random = new Random();
@@ -51,7 +49,7 @@ public class Utils {
                 stringBuilder.setLength(0);
             }
         }
-        contactService.save(contacts);
         LOG.info("Table contacts was recorded");
+        return contacts;
     }
 }
