@@ -21,10 +21,10 @@ public class ContactRestController {
     @ResponseBody
     public ResponseEntity<List<Contact>> getContactByName(@RequestParam("nameFilter") String nameFilter) {
         FilterContact filterContact = new FilterContact();
-
+        List<Contact> contacts = filterContact.filterContactByName(contactService.getAllContacts(), nameFilter);
         if (contactService.count() == 0){
             return new ResponseEntity<List<Contact>>(HttpStatus.NO_CONTENT);
         }
-        return  new ResponseEntity<List<Contact>>(filterContact.filterContactByName(contactService.getAllContacts(), nameFilter), HttpStatus.OK);
+        return  new ResponseEntity<List<Contact>>(contacts, HttpStatus.OK);
     }
 }
